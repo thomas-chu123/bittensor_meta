@@ -15,24 +15,27 @@ def display_meta():
     for hotkey in metagraph.hotkeys:
         index = metagraph.hotkeys.index(hotkey)
         axon = metagraph.axons[index]
+        stake = metagraph.stake[index]
+        trust = metagraph.trust[index]
         v_trust = metagraph.validator_trust[index]
         v_permit = metagraph.validator_permit[index]
         active = metagraph.active[index]
-        data.append([index, hotkey, active, v_permit, v_trust, axon.ip, axon.port, axon.version])
-
         if v_trust == 0:
+            data.append([index, hotkey, active, stake, trust, v_permit, v_trust, axon.ip, axon.port, axon.version])
             if axon.version in miner_version_summary:
                 miner_version_summary[axon.version] += 1
             else:
                 miner_version_summary[axon.version] = 1
         else:
-            if axon.version in validator_version_summary:
-                validator_version_summary[axon.version] += 1
+            val_version = metagraph.neurons[index].prometheus_info.version
+            data.append([index, hotkey, active, stake, trust, v_permit, v_trust, axon.ip, axon.port, val_version])
+            if val_version in validator_version_summary:
+                validator_version_summary[val_version] += 1
             else:
-                validator_version_summary[axon.version] = 1
+                validator_version_summary[val_version] = 1
 
     # Convert to DataFrame for display
-    columns = ['UID', 'Hotkey', 'Active', 'V_Permit', 'V_Trust', 'IP', 'Port', 'Version']
+    columns = ['UID', 'Hotkey', 'Active', 'Stake', 'Trust', 'V_Permit', 'V_Trust', 'IP', 'Port', 'Version']
     df = pd.DataFrame(data, columns=columns)
 
     # Streamlit UI
