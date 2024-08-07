@@ -1,0 +1,4 @@
+# Streamlit Bittensor Metagraph App
+The streamlit library is used to create the web app, the bittensor library is used to interact with the Bittensor
+network, and the pandas library is used for data manipulation.
+The function for the app is to display the metagraph data on bittensor subnet 27 network.
