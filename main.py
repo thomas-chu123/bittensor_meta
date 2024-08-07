@@ -5,7 +5,7 @@ import pandas as pd
 def display_meta():
     # Initialize metagraph with your specific netid
     netid = 27  # Replace with your actual netid
-    metagraph = bt.metagraph(netid)
+    metagraph = bt.metagraph(netid, lite=True)
     miner_version_summary = {}
     validator_version_summary = {}
 
